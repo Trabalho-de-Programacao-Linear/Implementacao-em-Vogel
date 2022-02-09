@@ -16,8 +16,8 @@ let costTable = [
     [22, 23, 12, 12, 34, 16, 33, 27, 0],
     [29, 20, 22, 10, 10, 19, 21, 34, 0],
 
-
 ];
+
 
 let postionNeed;
 let positionAvailability;
@@ -39,54 +39,32 @@ let dummyColummnAux = [];
 
 let auxTable = [];
 
-// let teste =getPenaltyColumn(costTable);
+
+// console.log(vogel(costTable));
+
+let table = vogel(costTable);
 
 
+let finalTable = finalCostTable(costTable, table);
 
-console.log(vogel(costTable));
-
-//console.log(costTable);
+console.log(table);
+console.log(finalTable);
+console.log(totalCost(finalTable))
 
 function vogel(table) {
 
 
-
-    // console.log(table);
-
-    // console.log(need);
-    // console.log(availability);
     let penaltyColumn = getPenaltyColumn(table);
     let penaltyLine = getPenaltyLine(table);
 
-    // console.log('Penalidades ')
-    // console.log(penaltyColumn)
-    // console.log("--------------------")
-    // console.log(penaltyLine);
-    // console.log("--------------------");
+
 
     let maxValueColumn = Math.max(...penaltyColumn);
     let maxValueLine = Math.max(...penaltyLine);
 
-    // console.log("Auxiliar ")
-
-    // console.log(auxTable);
-    // console.log("Original")
-
-
-    // console.log(need);
-    // console.log(availability);
-
-    // console.log("Maior Coluna = > " + maxValueColumn);
-    // console.log("Maior Linha -> " + maxValueLine);
 
     if (maxValueColumn >= maxValueLine) {
 
-        // if(availability[postionValueMinColumn] ===0 || need[postionValueMaxLine]===0){
-        //     // console.log("entrou")
-        //     vogel(table);
-        // }
-
-        
 
         let postionValueMaxLine = penaltyColumn.indexOf(maxValueColumn);
 
@@ -94,11 +72,9 @@ function vogel(table) {
 
         resultDiff = need[postionValueMaxLine] - availability[postionValueMinColumn];
 
+        table[postionValueMaxLine][postionValueMinColumn] = availability[postionValueMinColumn];
+        valueAvailability = availability[postionValueMinColumn];
 
-        // if (positionAvailability !== postionValueMinColumn) {
-            table[postionValueMaxLine][postionValueMinColumn] = availability[postionValueMinColumn];
-            valueAvailability = availability[postionValueMinColumn];
-        // }
 
 
         if (Math.sign(resultDiff) === 1) {
@@ -121,21 +97,15 @@ function vogel(table) {
 
     } else {
 
-        // if(availability[positionValueMaxColumn] ===0 || need[positionValueMinLine]===0){
-        //     // console.log("entou ")
-        //     vogel(table);
-        // }
-
         let positionValueMaxColumn = penaltyLine.indexOf(maxValueLine);
 
         let positionValueMinLine = getPositionValueMinColumn(table, positionValueMaxColumn);
 
         resultDiff = need[positionValueMinLine] - availability[positionValueMaxColumn];
 
-        // if (positionAvailability !== positionValueMaxColumn) {
-            table[positionValueMinLine][positionValueMaxColumn] = availability[positionValueMaxColumn];
-            valueAvailability = availability[positionValueMaxColumn];
-        // }
+
+        table[positionValueMinLine][positionValueMaxColumn] = availability[positionValueMaxColumn];
+        valueAvailability = availability[positionValueMaxColumn];
 
 
         if (Math.sign(resultDiff) === 1) {
@@ -158,11 +128,11 @@ function vogel(table) {
     }
 
 
-    
+
     if (need[postionNeed] === 0) {
 
         for (let j = 0; j < table[0].length; j++) {
-            if ( table[postionNeed][j] != valueNeed && table[postionNeed][j] < 50) {
+            if (table[postionNeed][j] != valueNeed && table[postionNeed][j] < 50) {
                 table[postionNeed][j] = 0;
             }
 
@@ -174,50 +144,11 @@ function vogel(table) {
 
         for (let i = 0; i < table.length; i++) {
 
-            if (table[i][positionAvailability] != valueAvailability  && table[i][positionAvailability] < 50) {
+            if (table[i][positionAvailability] != valueAvailability && table[i][positionAvailability] < 50) {
                 table[i][positionAvailability] = 0;
             }
         }
     }
-
-    // if (need[postionNeed] === 0 && availability[positionAvailability] === 0) {
-
-    //     for (let j = 0; j < table[0].length; j++) {
-    //         if (table[postionNeed][j] != valueAvailability && table[postionNeed][j] != valueNeed && table[postionNeed][j] < 50) {
-    //             table[postionNeed][j] = 0;
-    //         }
-
-    //     }
-    //     for (let i = 0; i < table.length; i++) {
-
-    //         if (table[i][positionAvailability] != valueAvailability && table[i][positionAvailability] && valueNeed && table[i][positionAvailability] < 50) {
-    //             table[i][positionAvailability] = 0;
-    //         }
-    //     }
-    // } else {
-
-    // if (need[postionNeed] === 0) {
-
-    //     for (let j = 0; j < table[0].length; j++) {
-    //         if (table[postionNeed][j] != valueAvailability && table[postionNeed][j] != valueNeed && table[postionNeed][j] < 50) {
-    //             table[postionNeed][j] = 0;
-    //         }
-
-    //     }
-
-    // }
-
-    // if (availability[positionAvailability] === 0) {
-
-    //     for (let i = 0; i < table.length; i++) {
-
-    //         if (table[i][positionAvailability] != valueAvailability && table[i][positionAvailability] && valueNeed && table[i][positionAvailability] < 50) {
-    //             table[i][positionAvailability] = 0;
-    //         }
-    //     }
-    // }
-
-    // }
 
     //Remove a coluna dummy após a primeira iteração
     if (columnDummyIsNull) {
@@ -234,15 +165,16 @@ function vogel(table) {
         columnDummyIsNull = false;
     }
 
-    //console.log(availability);
-
     if (!checkAvilability(availability)) {
         vogel(table);
+    } else {
+        for (let i = 0; i < table.length; i++) {
+            table[i].push(dummyColummnAux[i]);
+        }
     }
 
     return table;
 }
-
 
 
 //=========================Funções Auxiliares==============================
@@ -271,7 +203,7 @@ function getPenaltyColumn(table) {
 
         }
         orderedLine = orderedValues(currentLine, lineAux);
-        difference = differenceMinColumn(orderedLine);
+        difference = differenceMin(orderedLine);
         penaltyColumn.push(difference);
     }
     return penaltyColumn;
@@ -306,12 +238,12 @@ function getPenaltyLine(table) {
 
         orderedColumn = orderedValues(currentColumn, columnAux);
 
-        difference = differenceMinLine(orderedColumn);
+        difference = differenceMin(orderedColumn);
 
         penaltyLine.push(difference);
     }
     return penaltyLine;
-    //costTable.push(peneltyLine);
+
 }
 
 //retorna a posição do valor minimo de uma linha da tabela
@@ -319,9 +251,6 @@ function getPositionValueMinLine(table, linePosition) {
     let lineAux = [];
     let minValueLine;
     let minValuePosition;
-
-    //verificar forma de arrumar 
-    // if (columnDummyIsNull) {
 
 
     for (let j = 0; j < table[linePosition].length; j++) {
@@ -336,11 +265,6 @@ function getPositionValueMinLine(table, linePosition) {
         }
 
     }
-    // } else {
-    //     for (let j = 0; j < costTable[linePosition].length - 1; j++) {
-    //         lineAux.push(costTable[linePosition][j])
-    //     }
-    // }
 
     minValueLine = Math.min(...lineAux);
 
@@ -395,14 +319,9 @@ function orderedValues(array, arrayAux) {
 }
 
 //retorna a diferença entre os dois valores mínimos de um array --> linha
-function differenceMinLine(array) {
+function differenceMin(array) {
     let difference = 0;
 
-
-    // if (array.includes(M)) {
-    //     return difference;
-    // } else {
-        // console.log(array);
     for (let i = 0; i < 2; i++) {
         difference = array[i] - difference;
     }
@@ -415,7 +334,7 @@ function differenceMinLine(array) {
     return Math.abs(difference);
 }
 
-//
+//remove a coluna dummy da tabela e armazena ela em outro array
 function removeColumnDummy(table) {
     for (let i = 0; i < table.length; i++) {
         dummyColummnAux.push(table[i][table[0].length - 1]);
@@ -423,7 +342,7 @@ function removeColumnDummy(table) {
 }
 
 
-//Verifica se todos os
+//Verifica se a linha (array) da disponibilidade foi zerada
 function checkAvilability(availability) {
     let isZeroed = true;
     availability.forEach(element => {
@@ -435,24 +354,30 @@ function checkAvilability(availability) {
     return isZeroed;
 }
 
-//
-function differenceMinColumn(array) {
-    let difference = 0;
+//Monta a tabela final de custos em R$
+function finalCostTable(initialCostTable, finalCostTable) {
 
-
-    // if (array.includes(M)) {
-    //     return difference;
-    // } else {
-    for (let i = 0; i < 2; i++) {
-        difference = array[i] - difference;
+    let auxFinalCostTable = [];
+    let line;
+    for (let i = 0; i < initialCostTable.length; i++) {
+        line = [];
+        for (let j = 0; j < initialCostTable[0].length; j++) {
+            line.push(initialCostTable[i][j] * finalCostTable[i][j])
+        }
+        auxFinalCostTable.push(line)
     }
 
-    if (Math.abs(difference) > 1000) {
-        return difference = 0;
+    return auxFinalCostTable;
+}
 
+//Calcula o custo total 
+function totalCost(table) {
+
+    let sumTotalCost =0;
+    for(let i=0; i<table.length; i++){
+        for(let j =0; j<table[0].length; j++){
+            sumTotalCost+= table[i][j];
+        }
     }
-
-    return Math.abs(difference);
-    // }
-
+    return sumTotalCost;
 }
