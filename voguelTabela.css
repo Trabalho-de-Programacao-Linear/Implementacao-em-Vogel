@@ -1,0 +1,90 @@
+
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th,
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+h2{
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background:rgba(255,255,255,0.5);  
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
+
+    .box {
+        background: #2c2e2c;
+        color: white;
+        padding: 15px;
+        min-width: 75%;
+        max-width: 90%;
+        min-height: 600px;
+        max-height: 700px;
+        overflow: scroll;
+        border: 1px solid #ccc;
+        position: relative;
+    }
+    body {
+    margin: 0px;
+    }
+  
+    button {
+      background-color: #222;
+      color: #fff;
+      cursor: pointer;
+      font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.5;
+      max-width: none;
+      min-height: 44px;
+      min-width: 10px;
+      overflow: hidden;
+      padding: 9px 20px 8px;
+      position: relative;
+      text-align: center;
+      touch-action: manipulation;
+      margin: 0 auto;
+    }
+    
+    button:hover,
+    button:focus {
+      opacity: .75;
+    }
+
+    .botao{
+        color: white;
+        padding: 0px;
+        width: 24%;
+        height: 20%;
+        position: relative;
+        margin: auto;
+        
+    }
+
+    
