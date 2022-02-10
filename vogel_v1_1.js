@@ -36,6 +36,13 @@ let auxiliarTable = [
 
 ];
 
+let empresas = ["Empresa1","Empresa2","Empresa3","Empresa4","Empresa5","Empresa6","Empresa7","Empresa8","Empresa9","Empresa10","Empresa11","Empresa12"];
+
+let ofertantes = ["Ofertante1","Ofertante2","Ofertante3","Ofertante4","Ofertante5","Ofertante6","Ofertante7","Ofertante8"];
+
+
+
+
 
 let postionNeed;
 let positionAvailability;
@@ -399,9 +406,20 @@ function totalCost(table) {
 function showTablePrice(){
 
 let html = "<table>"
+let cont=0 
+
+html += "<tr>"
+html += "<td>" + "Empresa/Ofertante" + "</td>"
+while(cont != (auxiliarTable[0].length-1)){
+    html += "<td>" + ofertantes[cont] + "</td>"
+    cont++
+}
+html += "</tr>"
+
 for (let i = 0; i < auxiliarTable.length; i++) {
 html += "<tr>"
-for (let j = 0; j < auxiliarTable[0].length; j++) {
+html += "<td>" + empresas[i] + "</td>"
+for (let j = 0; j < (auxiliarTable[0].length -1); j++) {
     if(finalTable[i][j] != 0){
     html += "<td color='red'>" + finalTable[i][j] + "</td>";
     }else{
@@ -419,8 +437,20 @@ document.getElementById("showResult").innerHTML = html;
 function showFinalTable(){
 
     let html = "<table>"
+    let cont=0 
+    
+    html += "<tr>"
+    html += "<td>" + "Empresa/Ofertante" + "</td>"
+    while(cont != (auxiliarTable[0].length-1)){
+        html += "<td>" + ofertantes[cont] + "</td>"
+        cont++
+    }
+    html += "<td>" + "Não Entregue" + "</td>"
+    html += "</tr>"
+
     for (let i = 0; i < auxiliarTable.length; i++) {
     html += "<tr>"
+    html += "<td>" + empresas[i] + "</td>"
     for (let j = 0; j < auxiliarTable[0].length; j++) {
         if(table[i][j] != 0){
         html += "<td color='red'>" + table[i][j] + "</td>";
@@ -438,7 +468,7 @@ function showFinalTable(){
 
     function finalValue(){
 
-    let html = "<h1>"+ totalCost(finalTable) +"</h1>"
+    let html = "<h1>"+"R$ "+ totalCost(finalTable) +",00"+"</h1>"
     document.getElementById("box").style.visibility= "visible";
     document.getElementById("showResult").innerHTML = html;
     }
