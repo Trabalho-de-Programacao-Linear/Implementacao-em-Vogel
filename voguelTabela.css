@@ -43,7 +43,7 @@ h2{
         padding: 15px;
         min-width: 75%;
         max-width: 90%;
-        min-height: 600px;
+        min-height: 00px;
         max-height: 700px;
         overflow: scroll;
         border: 1px solid #ccc;
@@ -80,7 +80,7 @@ h2{
     .botao{
         color: white;
         padding: 0px;
-        width: 24%;
+        width: 30%;
         height: 20%;
         position: relative;
         margin: auto;
